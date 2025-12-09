@@ -2,7 +2,7 @@
  * Generate configuration recommendations based on project analysis
  */
 
-import type { ProjectAnalysis, RecommendedConfig, Preset, TeamSize, ConfidenceLevel } from "./types.ts";
+import type { ConfidenceLevel, Preset, ProjectAnalysis, RecommendedConfig, TeamSize } from "./types.ts";
 
 /**
  * Generate recommended configuration based on project analysis
@@ -47,9 +47,7 @@ function recommendSpecSystem(analysis: ProjectAnalysis): { value: string | null;
   }
 
   // Recommend OpenSpec for larger/more complex projects
-  const isComplex = analysis.isMonorepo ||
-    analysis.services.length > 1 ||
-    analysis.languages.length > 2;
+  const isComplex = analysis.isMonorepo || analysis.services.length > 1 || analysis.languages.length > 2;
 
   if (isComplex) {
     return {

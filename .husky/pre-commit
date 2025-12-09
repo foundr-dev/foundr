@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Pre-commit hook: type check and lint staged files
+# Ensure bun is in PATH
+export PATH="$HOME/.bun/bin:$PATH"
+
+echo "Running pre-commit checks..."
+
+# Type check
+echo "→ Type checking..."
+bun run typecheck
+if [ $? -ne 0 ]; then
+  echo "✗ Type check failed. Fix errors before committing."
+  exit 1
+fi
+
+# Lint
+echo "→ Linting..."
+bun run lint
+if [ $? -ne 0 ]; then
+  echo "✗ Lint failed. Run 'bun run lint:fix' to auto-fix."
+  exit 1
+fi
+
+echo "✓ Pre-commit checks passed"

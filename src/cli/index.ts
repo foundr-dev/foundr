@@ -3,8 +3,8 @@
  * foundr CLI - Forge your AI development workflow
  */
 
-import { Command } from "commander";
 import chalk from "chalk";
+import { Command } from "commander";
 import { version } from "../../package.json";
 import { initCommand } from "./commands/init.ts";
 import { validateCommand } from "./commands/validate.ts";

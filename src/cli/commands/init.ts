@@ -5,9 +5,9 @@
 import chalk from "chalk";
 import ora from "ora";
 import prompts from "prompts";
-import type { FoundrConfig, ProjectAnalysis, RecommendedConfig, Preset } from "../../core/types.ts";
 import { analyzeProject } from "../../analysers/index.ts";
 import { generateRecommendation } from "../../core/recommendation.ts";
+import type { FoundrConfig, Preset, ProjectAnalysis, RecommendedConfig } from "../../core/types.ts";
 import { generateInfrastructure } from "../../generators/index.ts";
 
 interface InitOptions {
@@ -106,7 +106,9 @@ export async function initCommand(options: InitOptions): Promise<void> {
     }
     console.log();
 
-    console.log(chalk.green("Done!") + chalk.dim(" Run ") + chalk.cyan("foundr validate") + chalk.dim(" to check your setup.\n"));
+    console.log(
+      chalk.green("Done!") + chalk.dim(" Run ") + chalk.cyan("foundr validate") + chalk.dim(" to check your setup.\n"),
+    );
   } catch (error) {
     genSpinner.fail("Generation failed");
     console.error(chalk.red(`\nError: ${error instanceof Error ? error.message : "Unknown error"}\n`));

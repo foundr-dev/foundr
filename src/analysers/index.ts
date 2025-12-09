@@ -2,9 +2,9 @@
  * Project analysers - detect project structure, languages, patterns
  */
 
-import { existsSync, readdirSync, statSync } from "fs";
-import { join, extname } from "path";
-import type { ProjectAnalysis, DetectedLanguage, ProjectType } from "../core/types.ts";
+import { existsSync, readdirSync, statSync } from "node:fs";
+import { extname, join } from "node:path";
+import type { DetectedLanguage, ProjectAnalysis, ProjectType } from "../core/types.ts";
 
 /**
  * Analyze a project to detect its structure, languages, and tools
@@ -168,12 +168,7 @@ function detectFrameworks(projectRoot: string, language: string): string[] {
  */
 async function detectMonorepo(projectRoot: string): Promise<boolean> {
   // Check for common monorepo indicators
-  const indicators = [
-    "lerna.json",
-    "pnpm-workspace.yaml",
-    "rush.json",
-    "nx.json",
-  ];
+  const indicators = ["lerna.json", "pnpm-workspace.yaml", "rush.json", "nx.json"];
 
   for (const indicator of indicators) {
     if (existsSync(join(projectRoot, indicator))) {
@@ -239,7 +234,7 @@ function inferProjectType(
   languages: DetectedLanguage[],
   isMonorepo: boolean,
   services: string[],
-  projectRoot: string
+  projectRoot: string,
 ): ProjectType {
   if (isMonorepo || services.length > 1) {
     return "monorepo";

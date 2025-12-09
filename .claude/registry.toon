@@ -1,0 +1,51 @@
+# Claude Component Registry
+# Single source of truth for agents, commands, hooks, and skills
+
+# =============================================================================
+# AGENTS - Specialised task handlers
+# =============================================================================
+
+agent{id,path,triggers,requires,description}:
+
+# Git agents
+  commit-author,agents/git/commit-author.md,"commit message conventional",none,Create well-structured conventional commits
+
+# Tools agents
+  investigate,agents/tools/investigate.md,"investigate explore understand how",none,Explore and understand codebase
+  test,agents/tools/test.md,"test unit bun",none,Run and fix tests
+  review,agents/tools/review.md,"review code quality",none,Review code quality
+  debug,agents/tools/debug.md,"debug issue",none,Debug issues
+  refactor,agents/tools/refactor.md,"refactor clean",none,Refactor code
+
+# =============================================================================
+# COMMANDS - Slash commands for quick actions
+# =============================================================================
+
+command{id,path,triggers,description}:
+
+# Git commands
+  commit,commands/commit.md,"commit",Create conventional commit
+
+# Quality commands
+  quality-check,commands/quality-check.md,"quality lint test type",Run all quality checks
+  lint,commands/lint.md,"lint",Run linter
+
+# OpenSpec commands
+  openspec-proposal,commands/openspec/proposal.md,"openspec proposal",Create OpenSpec proposal
+  openspec-apply,commands/openspec/apply.md,"openspec apply implement",Implement OpenSpec change
+  openspec-archive,commands/openspec/archive.md,"openspec archive",Archive deployed change
+
+# =============================================================================
+# HOOKS - Automated event handlers
+# =============================================================================
+
+hook{id,path,event,description}:
+  openspec-hint,hooks/openspec-hint.sh,user_prompt_submit,Suggest OpenSpec for changes
+
+# =============================================================================
+# SKILLS - Model-invoked capabilities
+# =============================================================================
+
+skill{id,path,triggers,description}:
+  bun-patterns,skills/bun-patterns/SKILL.md,"bun runtime api",Bun runtime patterns and APIs
+  cli-patterns,skills/cli-patterns/SKILL.md,"cli command argument",CLI development patterns

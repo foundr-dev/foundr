@@ -41,4 +41,4 @@ foundr.yaml.local
 
 # Local Claude settings (not for sharing)
 .claude/settings.local.json
-CLAUDE.md
+.claude/settings.json

@@ -3,7 +3,7 @@
  */
 
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
-import type { Registry, AgentDefinition, CommandDefinition, SkillDefinition, HookDefinition } from "../types.ts";
+import type { AgentDefinition, CommandDefinition, HookDefinition, Registry, SkillDefinition } from "../types.ts";
 
 export interface RegistryFile {
   version: string;

@@ -2,10 +2,10 @@
  * foundr validate command - Validate installation
  */
 
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import chalk from "chalk";
 import ora from "ora";
-import { existsSync } from "fs";
-import { join } from "path";
 
 interface ValidateOptions {
   fix?: boolean;
@@ -75,7 +75,7 @@ export async function validateCommand(options: ValidateOptions): Promise<void> {
 
   // Display results
   if (issues.length === 0) {
-    console.log(chalk.green("✓") + " All checks passed\n");
+    console.log(`${chalk.green("✓")} All checks passed\n`);
     return;
   }
 

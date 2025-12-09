@@ -2,9 +2,9 @@
  * Infrastructure generators - create files based on configuration
  */
 
-import { mkdir, writeFile } from "fs/promises";
-import { existsSync } from "fs";
-import { join } from "path";
+import { existsSync } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import { stringify as stringifyYaml } from "yaml";
 import type { FoundrConfig, ProjectAnalysis } from "../core/types.ts";
 
@@ -19,7 +19,7 @@ export interface GenerationResult {
 export async function generateInfrastructure(
   projectRoot: string,
   config: FoundrConfig,
-  analysis: ProjectAnalysis | null
+  analysis: ProjectAnalysis | null,
 ): Promise<GenerationResult> {
   const createdFiles: string[] = [];
   const skippedFiles: string[] = [];
@@ -110,14 +110,14 @@ This project uses foundr to manage AI development infrastructure.`);
 ## Project Structure
 
 - **Type**: ${analysis.projectType}
-- **Languages**: ${analysis.languages.map(l => l.name).join(", ")}
+- **Languages**: ${analysis.languages.map((l) => l.name).join(", ")}
 - **Main Branch**: ${analysis.gitBranch}`);
 
     if (analysis.services.length > 0) {
       sections.push(`
 ### Services
 
-${analysis.services.map(s => `- \`${s}/\``).join("\n")}`);
+${analysis.services.map((s) => `- \`${s}/\``).join("\n")}`);
     }
   }
 
@@ -217,13 +217,13 @@ function generateRegistry(config: FoundrConfig): string {
       description: "Create well-structured conventional commits",
     };
 
-    registry.commands["commit"] = {
+    registry.commands.commit = {
       path: "commands/commit.md",
       triggers: ["commit"],
       description: "Create conventional commit",
     };
 
-    registry.commands["ship"] = {
+    registry.commands.ship = {
       path: "commands/ship.md",
       triggers: ["ship", "push", "pr"],
       description: "Commit, push, and create PR",
@@ -237,7 +237,7 @@ function generateRegistry(config: FoundrConfig): string {
       description: "Check PRs, tasks, and suggest focus",
     };
 
-    registry.commands["morning"] = {
+    registry.commands.morning = {
       path: "commands/morning.md",
       triggers: ["morning", "daily"],
       description: "Daily sync routine",
@@ -261,7 +261,9 @@ async function generateAgents(claudeDir: string, config: FoundrConfig): Promise<
   // Commit author agent
   const commitAuthorPath = join(gitAgentsDir, "commit-author.md");
   if (!existsSync(commitAuthorPath)) {
-    await writeFile(commitAuthorPath, `# Commit Author Agent
+    await writeFile(
+      commitAuthorPath,
+      `# Commit Author Agent
 
 Create well-structured conventional commits.
 
@@ -283,7 +285,8 @@ Create well-structured conventional commits.
 - \`refactor:\` - Code restructuring
 - \`test:\` - Tests
 - \`chore:\` - Maintenance
-`);
+`,
+    );
     created.push(".claude/agents/git/commit-author.md");
   }
 
@@ -300,7 +303,9 @@ async function generateCommands(claudeDir: string, config: FoundrConfig): Promis
   // Commit command
   const commitPath = join(claudeDir, "commands", "commit.md");
   if (!existsSync(commitPath)) {
-    await writeFile(commitPath, `# /commit
+    await writeFile(
+      commitPath,
+      `# /commit
 
 Create a conventional commit for staged changes.
 
@@ -315,14 +320,17 @@ Create a conventional commit for staged changes.
 2. Generate or use provided commit message
 3. Follow conventional commit format
 4. Include attribution footer
-`);
+`,
+    );
     created.push(".claude/commands/commit.md");
   }
 
   // Ship command
   const shipPath = join(claudeDir, "commands", "ship.md");
   if (!existsSync(shipPath)) {
-    await writeFile(shipPath, `# /ship
+    await writeFile(
+      shipPath,
+      `# /ship
 
 Commit, push, and create a pull request.
 
@@ -337,7 +345,8 @@ Commit, push, and create a pull request.
 2. Push to remote
 3. Create pull request
 4. Link to task management (if configured)
-`);
+`,
+    );
     created.push(".claude/commands/ship.md");
   }
 

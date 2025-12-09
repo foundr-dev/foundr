@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Pre-push hook: run tests before pushing
+# Ensure bun is in PATH
+export PATH="$HOME/.bun/bin:$PATH"
+
+echo "Running pre-push checks..."
+
+# Run tests
+echo "→ Running tests..."
+bun test
+if [ $? -ne 0 ]; then
+  echo "✗ Tests failed. Fix failing tests before pushing."
+  exit 1
+fi
+
+echo "✓ Pre-push checks passed"

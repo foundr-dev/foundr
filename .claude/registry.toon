@@ -3,11 +3,17 @@
 
 agent{id,path,triggers,requires,description}:
   commit-author,agents/git/commit-author.md,"commit my create",none,Create well-structured conventional commits.
+  conflict-resolver,agents/git/conflict-resolver.md,"resolve conflicts,",none,Resolve merge and rebase conflicts intelligently.
+  pr-reviewer,agents/git/pr-reviewer.md,"review pr,",none,Conduct PR reviews with inline comments.
+  rebase-helper,agents/git/rebase-helper.md,"rebase, sync",none,Safely rebase branches onto main with conflict handling.
+  daily-sync,agents/lifecycle/daily-sync.md,"morning, daily",none,Morning routine - check PRs, tasks, sync branches, suggest focus.
+  code-reviewer,agents/tools/code-reviewer.md,"review my",none,Review local code changes before committing.
   debug,agents/tools/debug.md,"debug this why is fix",none,Debug issues and find root causes.
   investigate,agents/tools/investigate.md,"how does where is understand the explore",none,Explore and understand codebase structure and patterns.
   refactor,agents/tools/refactor.md,"refactor this clean up improve",none,Refactor code for better maintainability and performance.
   review,agents/tools/review.md,"review this check code my",none,Review code for quality, patterns, and potential issues.
   test,agents/tools/test.md,"run tests fix failing add",none,Run and fix tests using Bun test.
+  worktree,agents/tools/worktree.md,"worktree, parallel",none,Manage git worktrees for parallel development.
   complete-task,agents/workflow/complete-task.md,"complete, finish,",none,Finalize work after PR is merged - update task status and cleanup.
   execute-task,agents/workflow/execute-task.md,"implement, build,",none,Execute implementation work following TDD workflow.
   plan-task,agents/workflow/plan-task.md,"plan, clarify,",none,Clarify requirements and create implementation plans for complex tasks.
@@ -29,6 +35,9 @@ command{id,path,triggers,description}:
   openspec-apply,commands/openspec/apply.md,"apply",Implement an approved OpenSpec change.
   openspec-archive,commands/openspec/archive.md,"archive",Archive a completed OpenSpec change after deployment.
   openspec-proposal,commands/openspec/proposal.md,"proposal",Create a new OpenSpec change proposal.
+  pr-checks,commands/pr/checks.md,"checks",Show CI check status for a PR.
+  pr-diff,commands/pr/diff.md,"diff",Show PR changes in concise format.
+  pr-view,commands/pr/view.md,"view",Show concise PR information.
   quality-check,commands/quality-check.md,"quality-check",Run all quality checks (type check, lint, test).
   ship,commands/ship.md,"ship",Commit, push, and create a pull request in one command.
 

@@ -22,4 +22,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Registry validation
+echo "→ Validating registry..."
+bun run registry:validate --quiet
+if [ $? -ne 0 ]; then
+  echo "✗ Registry validation failed. Run 'bun run registry:validate' for details."
+  exit 1
+fi
+
 echo "✓ Pre-commit checks passed"

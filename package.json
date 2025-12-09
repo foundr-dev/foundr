@@ -31,6 +31,9 @@
     "lint:fix": "bunx biome check --write .",
     "format": "bunx biome format --write .",
     "typecheck": "tsc --noEmit",
+    "registry:generate": "bun run src/scripts/generate-registry.ts",
+    "registry:validate": "bun run src/scripts/validate-registry.ts",
+    "registry:preview": "bun run src/scripts/generate-registry.ts --preview",
     "prepublishOnly": "bun run build && bun run build:cli"
   },
   "keywords": ["ai", "claude", "opencode", "scaffolding", "developer-tools", "workflow", "cli", "agents", "llm"],

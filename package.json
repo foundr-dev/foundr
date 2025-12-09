@@ -1,0 +1,79 @@
+{
+  "name": "foundr",
+  "version": "0.1.0-alpha.1",
+  "description": "Forge your AI development workflow - scaffolding for Claude Code, OpenCode, and beyond",
+  "type": "module",
+  "bin": {
+    "foundr": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./cli": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.js"
+    }
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "dev": "bun run src/cli/index.ts",
+    "build": "bun build ./src/index.ts --outdir ./dist --target bun",
+    "build:cli": "bun build ./src/cli/index.ts --outdir ./dist --target bun --outfile ./dist/cli.js",
+    "build:standalone": "bun build ./src/cli/index.ts --compile --outfile ./dist/foundr",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "lint": "bunx biome check .",
+    "lint:fix": "bunx biome check --write .",
+    "format": "bunx biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build && bun run build:cli"
+  },
+  "keywords": [
+    "ai",
+    "claude",
+    "opencode",
+    "scaffolding",
+    "developer-tools",
+    "workflow",
+    "cli",
+    "agents",
+    "llm"
+  ],
+  "author": "foundr-dev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foundr-dev/foundr.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foundr-dev/foundr/issues"
+  },
+  "homepage": "https://github.com/foundr-dev/foundr#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "bun@1.3.4",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.3.4",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "yaml": "^2.8.0",
+    "chalk": "^5.4.1",
+    "ora": "^8.2.0",
+    "prompts": "^2.4.2",
+    "handlebars": "^4.7.8",
+    "globby": "^14.1.0",
+    "fast-glob": "^3.3.3"
+  }
+}

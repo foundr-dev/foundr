@@ -8,14 +8,29 @@ agent{id,path,triggers,requires,description}:
   refactor,agents/tools/refactor.md,"refactor this clean up improve",none,Refactor code for better maintainability and performance.
   review,agents/tools/review.md,"review this check code my",none,Review code for quality, patterns, and potential issues.
   test,agents/tools/test.md,"run tests fix failing add",none,Run and fix tests using Bun test.
+  complete-task,agents/workflow/complete-task.md,"complete, finish,",none,Finalize work after PR is merged - update task status and cleanup.
+  execute-task,agents/workflow/execute-task.md,"implement, build,",none,Execute implementation work following TDD workflow.
+  plan-task,agents/workflow/plan-task.md,"plan, clarify,",none,Clarify requirements and create implementation plans for complex tasks.
+  ship,agents/workflow/ship.md,"ship, push,",none,Commit changes, push to remote, and create a pull request.
+  start-work,agents/workflow/start-work.md,"start, begin,",none,Begin work on a task with proper setup and context gathering.
 
 command{id,path,triggers,description}:
   commit,commands/commit.md,"commit",Create a conventional commit for staged changes.
+  consider-5-whys,commands/consider/5-whys.md,"5-whys",Drill to root cause by asking "why" repeatedly (typically 5 times).
+  consider-first-principles,commands/consider/first-principles.md,"first-principles",Strip assumptions and rebuild from fundamentals.
+  consider-inversion,commands/consider/inversion.md,"inversion",Invert the problem - ask "what would guarantee failure?" then avoid those.
+  consider-pareto,commands/consider/pareto.md,"pareto",Apply the 80/20 rule - find the vital few factors driving most results.
+  consider-tradeoffs,commands/consider/tradeoffs.md,"tradeoffs",Make tradeoffs explicit - what are we sacrificing for what?
+  consider-yagni,commands/consider/yagni.md,"yagni",YAGNI check - You Aren't Gonna Need It.
+  git-push,commands/git/push.md,"push",Push current branch to remote with safety defaults.
+  git-status,commands/git/status.md,"status",Show git status in a context-efficient format.
+  git-sync,commands/git/sync.md,"sync",Fetch latest changes and rebase current branch onto main.
   lint,commands/lint.md,"lint",Run Biome linter and optionally fix issues.
   openspec-apply,commands/openspec/apply.md,"apply",Implement an approved OpenSpec change.
   openspec-archive,commands/openspec/archive.md,"archive",Archive a completed OpenSpec change after deployment.
   openspec-proposal,commands/openspec/proposal.md,"proposal",Create a new OpenSpec change proposal.
   quality-check,commands/quality-check.md,"quality-check",Run all quality checks (type check, lint, test).
+  ship,commands/ship.md,"ship",Commit, push, and create a pull request in one command.
 
 skill{id,path,triggers,description}:
   bun-patterns,skills/bun-patterns/SKILL.md,"bun-patterns",On-demand context for Bun runtime patterns and APIs.

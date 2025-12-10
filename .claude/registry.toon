@@ -2,10 +2,14 @@
 # Run: bun run src/scripts/generate-registry.ts
 
 agent{id,path,triggers,requires,description}:
+  bisect-helper,agents/git/bisect-helper.md,"bisect, find",none,Guide through git bisect to find bug-introducing commit.
+  branch-cleanup,agents/git/branch-cleanup.md,"clean branches,",none,Clean up old, merged, or stale branches safely.
   commit-author,agents/git/commit-author.md,"commit my create",none,Create well-structured conventional commits.
   conflict-resolver,agents/git/conflict-resolver.md,"resolve conflicts,",none,Resolve merge and rebase conflicts intelligently.
+  create-pr,agents/git/create-pr.md,"create pr,",none,Create a pull request with proper formatting.
   pr-reviewer,agents/git/pr-reviewer.md,"review pr,",none,Conduct PR reviews with inline comments.
   rebase-helper,agents/git/rebase-helper.md,"rebase, sync",none,Safely rebase branches onto main with conflict handling.
+  reset-helper,agents/git/reset-helper.md,"reset, undo",none,Guide through safely undoing commits with git reset.
   daily-sync,agents/lifecycle/daily-sync.md,"morning, daily",none,Morning routine - check PRs, tasks, sync branches, suggest focus.
   task-breakdown,agents/lifecycle/task-breakdown.md,"break down,",none,Break down large tasks into smaller, actionable subtasks.
   code-reviewer,agents/tools/code-reviewer.md,"review my",none,Review local code changes before committing.
@@ -25,9 +29,12 @@ command{id,path,triggers,description}:
   commit,commands/commit.md,"commit",Create a conventional commit for staged changes.
   consider-5-whys,commands/consider/5-whys.md,"5-whys",Drill to root cause by asking "why" repeatedly (typically 5 times).
   consider-bottlenecks,commands/consider/bottlenecks.md,"bottlenecks",Find the constraint - what single factor limits the whole system?
+  consider-eisenhower,commands/consider/eisenhower.md,"eisenhower",Eisenhower Matrix - sort by urgent vs important to prioritise.
+  consider-feedback-loops,commands/consider/feedback-loops.md,"feedback-loops",Identify feedback loops - positive (amplifying) and negative (stabilising).
   consider-first-principles,commands/consider/first-principles.md,"first-principles",Strip assumptions and rebuild from fundamentals.
   consider-inversion,commands/consider/inversion.md,"inversion",Invert the problem - ask "what would guarantee failure?" then avoid those.
   consider-margin-of-safety,commands/consider/margin-of-safety.md,"margin-of-safety",Build in buffers - what margin protects against uncertainty?
+  consider-occams-razor,commands/consider/occams-razor.md,"occams-razor",Prefer the simplest explanation - fewest assumptions that fit all facts.
   consider-opportunity-cost,commands/consider/opportunity-cost.md,"opportunity-cost",Evaluate true cost - what are you giving up by choosing this?
   consider-pareto,commands/consider/pareto.md,"pareto",Apply the 80/20 rule - find the vital few factors driving most results.
   consider-premature-optimisation,commands/consider/premature-optimisation.md,"premature-optimisation",Check for premature optimisation - is this optimisation actually needed?

@@ -19,6 +19,9 @@ Use `/consider:*` commands at key decision points in your workflow.
 | Via Negativa | Improvement by removal | `/consider:via-negativa` |
 | Premature Optimisation | Optimisation decisions | `/consider:premature-optimisation` |
 | YAGNI | Feature scope decisions | `/consider:yagni` |
+| Eisenhower | Task prioritisation | `/consider:eisenhower` |
+| Feedback Loops | System behaviour analysis | `/consider:feedback-loops` |
+| Occam's Razor | Simplest explanation | `/consider:occams-razor` |
 
 ## Integration Points
 

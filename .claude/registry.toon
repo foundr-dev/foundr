@@ -59,6 +59,9 @@ command{id,path,triggers,description}:
   pr-diff,commands/pr/diff.md,"diff",Show PR changes in concise format.
   pr-view,commands/pr/view.md,"view",Show concise PR information.
   quality-check,commands/quality-check.md,"quality-check",Run all quality checks (type check, lint, test).
+  quality-complexity,commands/quality/complexity.md,"complexity",Analyse code for algorithmic complexity (Big O) and performance issues.
+  quality-optimise,commands/quality/optimise.md,"optimise",Analyse code for performance, security, and potential issues.
+  quality-validate-repo,commands/quality/validate-repo.md,"validate-repo",Validate repository configuration and integrity.
   ship,commands/ship.md,"ship",Commit, push, and create a pull request in one command.
   worktree-create,commands/worktree/create.md,"create",Create a new git worktree.
   worktree-list,commands/worktree/list.md,"list",List git worktrees with branch info and status.

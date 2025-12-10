@@ -62,6 +62,8 @@ command{id,path,triggers,description}:
   quality-complexity,commands/quality/complexity.md,"complexity",Analyse code for algorithmic complexity (Big O) and performance issues.
   quality-optimise,commands/quality/optimise.md,"optimise",Analyse code for performance, security, and potential issues.
   quality-validate-repo,commands/quality/validate-repo.md,"validate-repo",Validate repository configuration and integrity.
+  resume,commands/resume.md,"resume",Resume work from a previous session.
+  save-context,commands/save-context.md,"save-context",Save current context to session before compaction.
   ship,commands/ship.md,"ship",Commit, push, and create a pull request in one command.
   worktree-create,commands/worktree/create.md,"create",Create a new git worktree.
   worktree-list,commands/worktree/list.md,"list",List git worktrees with branch info and status.
@@ -73,3 +75,4 @@ skill{id,path,triggers,description}:
 
 hook{id,path,event,description}:
   openspec-hint,hooks/openspec-hint.sh,user_prompt_submit,OpenSpec Hint Hook
+  pre-compaction-save,hooks/pre-compaction-save.sh,stop,Save context reminder before conversation ends

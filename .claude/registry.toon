@@ -7,6 +7,7 @@ agent{id,path,triggers,requires,description}:
   pr-reviewer,agents/git/pr-reviewer.md,"review pr,",none,Conduct PR reviews with inline comments.
   rebase-helper,agents/git/rebase-helper.md,"rebase, sync",none,Safely rebase branches onto main with conflict handling.
   daily-sync,agents/lifecycle/daily-sync.md,"morning, daily",none,Morning routine - check PRs, tasks, sync branches, suggest focus.
+  task-breakdown,agents/lifecycle/task-breakdown.md,"break down,",none,Break down large tasks into smaller, actionable subtasks.
   code-reviewer,agents/tools/code-reviewer.md,"review my",none,Review local code changes before committing.
   debug,agents/tools/debug.md,"debug this why is fix",none,Debug issues and find root causes.
   investigate,agents/tools/investigate.md,"how does where is understand the explore",none,Explore and understand codebase structure and patterns.
@@ -23,10 +24,17 @@ agent{id,path,triggers,requires,description}:
 command{id,path,triggers,description}:
   commit,commands/commit.md,"commit",Create a conventional commit for staged changes.
   consider-5-whys,commands/consider/5-whys.md,"5-whys",Drill to root cause by asking "why" repeatedly (typically 5 times).
+  consider-bottlenecks,commands/consider/bottlenecks.md,"bottlenecks",Find the constraint - what single factor limits the whole system?
   consider-first-principles,commands/consider/first-principles.md,"first-principles",Strip assumptions and rebuild from fundamentals.
   consider-inversion,commands/consider/inversion.md,"inversion",Invert the problem - ask "what would guarantee failure?" then avoid those.
+  consider-margin-of-safety,commands/consider/margin-of-safety.md,"margin-of-safety",Build in buffers - what margin protects against uncertainty?
+  consider-opportunity-cost,commands/consider/opportunity-cost.md,"opportunity-cost",Evaluate true cost - what are you giving up by choosing this?
   consider-pareto,commands/consider/pareto.md,"pareto",Apply the 80/20 rule - find the vital few factors driving most results.
+  consider-premature-optimisation,commands/consider/premature-optimisation.md,"premature-optimisation",Check for premature optimisation - is this optimisation actually needed?
+  consider-reversibility,commands/consider/reversibility.md,"reversibility",Assess reversibility - is this a one-way door or two-way door decision?
+  consider-second-order,commands/consider/second-order.md,"second-order",Trace consequences - "And then what?" to see downstream effects.
   consider-tradeoffs,commands/consider/tradeoffs.md,"tradeoffs",Make tradeoffs explicit - what are we sacrificing for what?
+  consider-via-negativa,commands/consider/via-negativa.md,"via-negativa",Via Negativa - improve by removing, not adding (less is more).
   consider-yagni,commands/consider/yagni.md,"yagni",YAGNI check - You Aren't Gonna Need It.
   git-push,commands/git/push.md,"push",Push current branch to remote with safety defaults.
   git-status,commands/git/status.md,"status",Show git status in a context-efficient format.
@@ -35,11 +43,16 @@ command{id,path,triggers,description}:
   openspec-apply,commands/openspec/apply.md,"apply",Implement an approved OpenSpec change.
   openspec-archive,commands/openspec/archive.md,"archive",Archive a completed OpenSpec change after deployment.
   openspec-proposal,commands/openspec/proposal.md,"proposal",Create a new OpenSpec change proposal.
+  planning-plan,commands/planning/plan.md,"plan",Create an executable implementation plan with phased tasks.
+  planning-research,commands/planning/research.md,"research",Research a problem systematically before planning or implementation.
   pr-checks,commands/pr/checks.md,"checks",Show CI check status for a PR.
   pr-diff,commands/pr/diff.md,"diff",Show PR changes in concise format.
   pr-view,commands/pr/view.md,"view",Show concise PR information.
   quality-check,commands/quality-check.md,"quality-check",Run all quality checks (type check, lint, test).
   ship,commands/ship.md,"ship",Commit, push, and create a pull request in one command.
+  worktree-create,commands/worktree/create.md,"create",Create a new git worktree.
+  worktree-list,commands/worktree/list.md,"list",List git worktrees with branch info and status.
+  worktree-remove,commands/worktree/remove.md,"remove",Remove a git worktree.
 
 skill{id,path,triggers,description}:
   bun-patterns,skills/bun-patterns/SKILL.md,"bun-patterns",On-demand context for Bun runtime patterns and APIs.

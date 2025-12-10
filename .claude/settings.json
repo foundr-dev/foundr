@@ -34,6 +34,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.bun/bin/bun run \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/src/scripts/hooks/validate-spec-loaded.ts\"",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PostToolUse": [

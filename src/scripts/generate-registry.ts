@@ -8,7 +8,9 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { writeFileSync } from "node:fs";
 import { basename, dirname, join, relative } from "node:path";
 
-const CLAUDE_DIR = join(import.meta.dirname, "../../.claude");
+const REPO_ROOT = join(import.meta.dirname, "../..");
+const CLAUDE_DIR = join(REPO_ROOT, ".claude");
+const HOOKS_DIR = join(REPO_ROOT, "src/scripts/hooks");
 const REGISTRY_PATH = join(CLAUDE_DIR, "registry.toon");
 
 const preview = process.argv.includes("--preview");
@@ -92,25 +94,42 @@ function extractFromMarkdown(filePath: string): { description: string; triggers:
   return { description, triggers: triggerList.join(" ") };
 }
 
-function extractFromShell(filePath: string): { description: string; event: string } {
+function extractFromTypeScript(filePath: string): { description: string; event: string } {
   const content = readFileSync(filePath, "utf-8");
   const lines = content.split("\n");
 
   let description = "";
   let event = "user_prompt_submit";
+  let inComment = false;
 
   for (const line of lines) {
-    // Look for description comment
-    if (line.startsWith("# ") && !description && !line.includes("!/")) {
-      description = line.replace(/^# /, "").trim().slice(0, 80);
+    // Track JSDoc/multiline comments
+    if (line.includes("/**") || line.includes("/*")) {
+      inComment = true;
+    }
+
+    // Look for Purpose or Hook description in comments
+    if ((inComment || line.startsWith("//")) && !description) {
+      if (line.toLowerCase().includes("purpose:")) {
+        const match = line.match(/purpose:\s*(.+)/i);
+        if (match?.[1]) {
+          description = match[1].trim().slice(0, 80);
+        }
+      } else if (line.includes("Hook:")) {
+        // Skip the hook name line, look for next comment line
+      }
     }
 
     // Look for event specification
     if (line.toLowerCase().includes("event:")) {
       const match = line.match(/event:\s*(\S+)/i);
       if (match?.[1]) {
-        event = match[1];
+        event = match[1].toLowerCase();
       }
+    }
+
+    if (line.includes("*/")) {
+      inComment = false;
     }
   }
 
@@ -186,12 +205,14 @@ function generateSkills(): ComponentEntry[] {
 
 function generateHooks(): ComponentEntry[] {
   const entries: ComponentEntry[] = [];
-  const files = findAllFiles(join(CLAUDE_DIR, "hooks"), ".sh");
 
-  for (const file of files) {
-    const relPath = relative(CLAUDE_DIR, file);
-    const id = basename(file, ".sh");
-    const { description, event } = extractFromShell(file);
+  // Look for TypeScript hooks in src/scripts/hooks/
+  const tsFiles = findAllFiles(HOOKS_DIR, ".ts");
+
+  for (const file of tsFiles) {
+    const relPath = relative(REPO_ROOT, file);
+    const id = basename(file, ".ts");
+    const { description, event } = extractFromTypeScript(file);
 
     entries.push({
       id,

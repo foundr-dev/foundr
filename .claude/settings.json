@@ -1,12 +1,13 @@
 {
   "hooks": {
-    "SessionStart": [
+    "PreToolUse": [
       {
-        "matcher": "startup",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bun run --cwd $PROJECT_ROOT src/scripts/hooks/session-start.ts"
+            "command": "bash \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/git-hint.sh\" \"$CLAUDE_TOOL_INPUT\"",
+            "timeout": 5
           }
         ]
       }
@@ -17,18 +18,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bun run --cwd $PROJECT_ROOT src/scripts/hooks/bash-failure.ts"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bun run --cwd $PROJECT_ROOT src/scripts/hooks/git-hint.ts"
+            "command": "bash \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/bash-failure.sh\" \"$CLAUDE_TOOL_INPUT\"",
+            "timeout": 5
           }
         ]
       }

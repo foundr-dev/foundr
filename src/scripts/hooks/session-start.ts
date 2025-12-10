@@ -16,8 +16,18 @@ interface ValidationError {
 
 function checkCommand(cmd: string): boolean {
   try {
-    execSync(`command -v ${cmd}`, { stdio: "ignore" });
-    return true;
+    // Check standard PATH and common install locations
+    const checkPaths = [`command -v ${cmd}`, `test -x "$HOME/.bun/bin/${cmd}"`, `test -x "/usr/local/bin/${cmd}"`];
+
+    for (const check of checkPaths) {
+      try {
+        execSync(check, { stdio: "ignore", shell: "/bin/bash" });
+        return true;
+      } catch {
+        // Continue to next check
+      }
+    }
+    return false;
   } catch {
     return false;
   }
@@ -73,14 +83,14 @@ function validateEnvironment(): ValidationError[] {
 function getQuickStartCommands(_cwd: string): string[] {
   const commands: string[] = [];
 
-  // Check if we're at repo root
-  const isRepoRoot = existsSync("src/cli.ts");
+  // Check if we're at repo root (check for CLAUDE.md or src/)
+  const isRepoRoot = existsSync("CLAUDE.md") || existsSync("src/");
 
   if (isRepoRoot) {
     commands.push("/commit        - Create conventional commit");
     commands.push("/ship          - Commit, push, and create PR");
-    commands.push("bun run dev    - Start development");
-    commands.push("bun test       - Run tests");
+    commands.push("/resume        - Resume from saved session");
+    commands.push("/save-context  - Save context before compaction");
   } else {
     commands.push("cd to repo root for full functionality");
   }

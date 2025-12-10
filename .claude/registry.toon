@@ -2,17 +2,20 @@
 # Run: bun run src/scripts/generate-registry.ts
 
 agent{id,path,triggers,requires,description}:
+  address-pr-feedback,agents/git/address-pr-feedback.md,"address-pr-feedback",none,
   bisect-helper,agents/git/bisect-helper.md,"bisect, find",none,Guide through git bisect to find bug-introducing commit.
   branch-cleanup,agents/git/branch-cleanup.md,"clean branches,",none,Clean up old, merged, or stale branches safely.
   commit-author,agents/git/commit-author.md,"commit my create",none,Create well-structured conventional commits.
   conflict-resolver,agents/git/conflict-resolver.md,"resolve conflicts,",none,Resolve merge and rebase conflicts intelligently.
   create-pr,agents/git/create-pr.md,"create pr,",none,Create a pull request with proper formatting.
+  hotfix,agents/git/hotfix.md,"hotfix",none,
   pr-reviewer,agents/git/pr-reviewer.md,"review pr,",none,Conduct PR reviews with inline comments.
   rebase-helper,agents/git/rebase-helper.md,"rebase, sync",none,Safely rebase branches onto main with conflict handling.
   reset-helper,agents/git/reset-helper.md,"reset, undo",none,Guide through safely undoing commits with git reset.
   daily-sync,agents/lifecycle/daily-sync.md,"morning, daily",none,Morning routine - check PRs, tasks, sync branches, suggest focus.
   task-breakdown,agents/lifecycle/task-breakdown.md,"break down,",none,Break down large tasks into smaller, actionable subtasks.
   code-reviewer,agents/tools/code-reviewer.md,"review my",none,Review local code changes before committing.
+  complexity-analyser,agents/tools/complexity-analyser.md,"complexity-analyser",none,
   debug,agents/tools/debug.md,"debug this why is fix",none,Debug issues and find root causes.
   investigate,agents/tools/investigate.md,"how does where is understand the explore",none,Explore and understand codebase structure and patterns.
   refactor,agents/tools/refactor.md,"refactor this clean up improve",none,Refactor code for better maintainability and performance.

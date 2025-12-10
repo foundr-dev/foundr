@@ -100,33 +100,33 @@ function getQuickStartCommands(_cwd: string): string[] {
 
 function formatOutput(errors: ValidationError[]): string {
   if (errors.length > 0) {
-    let msg = "⚠️  ENVIRONMENT SETUP REQUIRED  ⚠️\\n";
-    msg += "========================================\\n\\n";
+    let msg = "⚠️  ENVIRONMENT SETUP REQUIRED  ⚠️\n";
+    msg += "========================================\n\n";
 
     for (const error of errors) {
-      msg += `[MISSING] ${error.name}\\n`;
-      msg += `  Fix: ${error.fix}\\n\\n`;
+      msg += `[MISSING] ${error.name}\n`;
+      msg += `  Fix: ${error.fix}\n\n`;
     }
 
-    msg += "========================================\\n";
+    msg += "========================================\n";
     msg += "Run 'bun install' to set up dependencies";
 
     return msg;
   }
 
   // Environment OK - show welcome
-  let msg = "========================================\\n";
-  msg += "  foundr - AI Development Infrastructure\\n";
-  msg += "========================================\\n\\n";
+  let msg = "========================================\n";
+  msg += "  foundr - AI Development Infrastructure\n";
+  msg += "========================================\n\n";
 
-  msg += "Quick Start:\\n";
+  msg += "Quick Start:\n";
   const commands = getQuickStartCommands(process.cwd());
   for (const cmd of commands) {
-    msg += `  ${cmd}\\n`;
+    msg += `  ${cmd}\n`;
   }
 
-  msg += "\\n";
-  msg += "Run /help for all available commands.\\n";
+  msg += "\n";
+  msg += "Run /help for all available commands.\n";
   msg += "========================================";
 
   return msg;

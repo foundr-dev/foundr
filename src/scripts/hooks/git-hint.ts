@@ -80,9 +80,9 @@ function getGitHint(command: string): string | null {
     return null;
   }
 
-  let message = "Git Safety Hints:\\n";
+  let message = "Git Safety Hints:\n";
   for (const hint of hints) {
-    message += `  - ${hint}\\n`;
+    message += `  - ${hint}\n`;
   }
 
   return message;

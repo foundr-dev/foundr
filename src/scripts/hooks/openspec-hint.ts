@@ -45,8 +45,8 @@ function main(): void {
   for (const keyword of CHANGE_KEYWORDS) {
     if (promptLower.includes(keyword)) {
       const message =
-        "💡 This looks like a significant change. Consider using OpenSpec:\\n" +
-        "   /openspec:proposal - Create a change proposal first\\n" +
+        "💡 This looks like a significant change. Consider using OpenSpec:\n" +
+        "   /openspec:proposal - Create a change proposal first\n" +
         "   See openspec/AGENTS.md for workflow details";
       console.log(JSON.stringify({ systemMessage: message }));
       process.exit(0);

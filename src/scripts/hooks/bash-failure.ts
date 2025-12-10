@@ -85,11 +85,11 @@ function detectFailure(input: HookInput): string | null {
     return null; // Don't add noise for unrecognized failures
   }
 
-  let message = `Command failed (exit ${exitCode}):\\n`;
-  message += `Command: ${command.substring(0, 100)}${command.length > 100 ? "..." : ""}\\n\\n`;
-  message += "Suggestions:\\n";
+  let message = `Command failed (exit ${exitCode}):\n`;
+  message += `Command: ${command.substring(0, 100)}${command.length > 100 ? "..." : ""}\n\n`;
+  message += "Suggestions:\n";
   for (const suggestion of suggestions) {
-    message += `  - ${suggestion}\\n`;
+    message += `  - ${suggestion}\n`;
   }
 
   return message;

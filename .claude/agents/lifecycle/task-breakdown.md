@@ -1,13 +1,19 @@
-# task-breakdown
+---
+name: task-breakdown
+description: Break down large tasks into smaller, actionable subtasks
+tools: Bash, Read, Grep, Glob, Task, AskUserQuestion
+model: sonnet
+---
 
-Break down large tasks into smaller, actionable subtasks.
+Understand → research → decompose → estimate → present
 
-## Triggers
+Input: Large or complex task | Output: Breakdown with subtasks
 
-- break down, decompose, split task, subtasks
+<objective>
+Break down large tasks into smaller, actionable subtasks that are independent, testable, and appropriately sized.
+</objective>
 
-## Behavior
-
+<process>
 1. **Understand the Task**
    - Read task description
    - Identify scope and complexity
@@ -33,31 +39,46 @@ Break down large tasks into smaller, actionable subtasks.
 5. **Present & Create**
    - Show breakdown for approval
    - Create subtasks after approval
+</process>
 
-## Usage
+<output_format>
+```text
+breakdown{task,subtasks,total_estimate}:
+  <id>,<count>,S|M|L|XL
 
+subtasks[]{id,name,estimate,depends_on}:
+  1,Research patterns,S,none
+  2,Add data layer,M,1
+  3,Add UI component,M,2
+  4,Add tests,S,3
 ```
-Break down this task
-Split this into subtasks
-This is too big, decompose it
+
+Return format:
 ```
+result{status,action}:
+  success,continue | blocked,needs-input | failed,reason
 
-## Good Subtasks
+subtasks[]:
+  (created subtasks)
+```
+</output_format>
 
-✅ **Do**:
+<constraints>
+**Good Subtasks** ✅:
 - Independent (can be done in any order)
 - Testable (clear done criteria)
 - Small (1-4 hours)
 - Ordered logically
 
-❌ **Don't**:
+**Bad Subtasks** ❌:
 - Vague ("improve performance")
 - Too large (full day+)
 - Overlapping (same code changed)
-- Dependent chains
+- Long dependency chains
+</constraints>
 
-## Feature Template
-
+<additional_info>
+**Feature Template**:
 1. Research existing patterns (S)
 2. Add data layer/API (S-M)
 3. Add business logic (S-M)
@@ -65,8 +86,15 @@ This is too big, decompose it
 5. Add states (loading/error/empty) (S)
 6. Add tests (S-M)
 7. Integration test (if needed) (M)
+</additional_info>
 
-## See Also
+<success_criteria>
+- Task broken into actionable subtasks
+- Each subtask appropriately sized (1-4 hours)
+- Dependencies identified
+- User approved breakdown
+</success_criteria>
 
-- `plan-task` - For complex planning
-- `execute-task` - For implementation
+Done: Task broken down into subtasks
+
+Ask first: Before creating subtasks

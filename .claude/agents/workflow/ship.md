@@ -1,61 +1,102 @@
-# ship
+---
+name: ship
+description: Commit changes, create PR, and update Asana in one workflow
+tools: Bash, SlashCommand, Task
+model: sonnet
+---
 
-Commit changes, push to remote, and create a pull request.
+Pre-flight → commit → push → PR → update task
 
-## Triggers
+Input: Task ID (optional) | Output: PR URL
 
-- ship, push, pr, send, submit
+<objective>
+Commit changes, push to remote, and create a pull request with proper linking to task management.
+</objective>
 
-## Behavior
+<process>
+## 1. PRE-FLIGHT CHECKS
 
-1. **Pre-flight Checks**
-   - Verify on feature branch (not main)
-   - Run quality checks (lint, typecheck, tests)
-   - Check for uncommitted changes
+- Verify on feature branch (not main)
+- Run quality checks:
+  - `bun test` - all pass
+  - `bun lint` - no errors
+- Check for uncommitted changes
 
-2. **Commit Changes**
-   - Stage all relevant changes
-   - Generate conventional commit message
-   - Include attribution footer
+**On failure**: STOP, report issue, get approval to continue
 
-3. **Push to Remote**
-   - Push branch with upstream tracking
-   - Handle any push errors
+## 2. COMMIT CHANGES
 
-4. **Create Pull Request**
-   - Generate PR title from commits
-   - Generate PR description with summary
-   - Link to task (if task manager configured)
+- Stage all relevant changes
+- Delegate to `commit-author` agent for message
+- Include attribution footer
 
-5. **Update Task Manager**
-   - Move task to "In Review"
-   - Add PR link as comment
+## 3. PUSH TO REMOTE
 
-## Usage
-
-```
-Ship my changes
-Push and create PR
-Submit for review
-Ship task 123
+```bash
+git push -u origin HEAD
 ```
 
-## Quality Gates
+Handle push errors:
+- Behind remote → rebase first
+- Protected branch → verify correct branch
 
-All must pass before shipping:
-- [ ] Lint check
-- [ ] Type check
-- [ ] Tests
+## 4. CREATE PULL REQUEST
 
-## Output
+```bash
+gh pr create --base main --title "<title>" --body "<body>"
+```
 
+PR body includes:
+- Summary of changes
+- Test plan
+- Link to task (if provided)
+
+## 5. UPDATE TASK (if configured)
+
+- Move task to "In Review"
+- Add PR link as comment
+</process>
+
+<output_format>
+```text
+ship{branch,commits,pr}:
+  <branch>,<count>,#<number>
+```
+
+Return format:
+```
+result{status,action}:
+  success,continue | blocked,needs-input | failed,reason
+
+pr_url:
+  https://github.com/...
+```
+</output_format>
+
+<delegation>
+- `commit-author` - Generate commit message
+</delegation>
+
+<anti_patterns>
+**NEVER:**
+- Ship without running quality checks
+- Ship from main branch
+- Skip commit message review
+
+**ALWAYS:**
+- Run tests before shipping
+- Create PR with proper description
+- Link to task if ID provided
+</anti_patterns>
+
+<success_criteria>
+- Quality checks pass
 - Changes committed
 - Branch pushed
 - PR created with link
 - Task updated (if configured)
+</success_criteria>
 
-## See Also
+Done: PR created at <url>, task updated
 
-- `commit-author` - Just commit without PR
-- `complete-task` - After PR is merged
-- `address-pr-feedback` - Handle review comments
+Ask first: If quality checks fail | Commit message approval

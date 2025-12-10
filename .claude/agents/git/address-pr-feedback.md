@@ -69,6 +69,30 @@ files_modified[]{path,change}:
 ```
 </output_format>
 
+<delegation>
+- `investigate` - For complex feedback requiring codebase research
+- `test` - If new tests needed
+
+**Parallelise independent delegations**: When investigating multiple feedback areas (e.g., API + UI concerns), issue all Task calls in a single response.
+</delegation>
+
+<anti_patterns>
+**NEVER:**
+
+- Make changes without presenting approval summary first
+- Skip complexity assessment (complex feedback needs research)
+- Push without running tests and lint
+- Mark comments resolved without actually addressing them
+- Address optional suggestions as if required
+
+**ALWAYS:**
+
+- Categorise feedback (required vs suggestion vs question)
+- Test after changes
+- Respond to each comment with what was done
+- Request re-review after addressing feedback
+</anti_patterns>
+
 <success_criteria>
 - All BLOCKING items addressed
 - Quality checks pass

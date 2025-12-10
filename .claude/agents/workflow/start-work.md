@@ -1,53 +1,93 @@
-# start-work
+---
+name: start-work
+description: Set up task (Asana or standalone), create worktree, assess complexity, and orchestrate workflow
+tools: Bash, SlashCommand, AskUserQuestion, Task
+model: sonnet
+---
 
-Begin work on a task with proper setup and context gathering.
+Parse task → setup environment → gather context → assess → route
 
-## Triggers
+Input: Task ID, URL, or description | Output: Ready to implement with context
 
-- start, begin, work on, pick up
+<objective>
+Begin work on a task with proper setup, context gathering, and complexity assessment. Route to appropriate workflow based on task type.
+</objective>
 
-## Behavior
+<process>
+## 1. PARSE TASK
 
-1. **Parse Task Reference**
-   - Accept task ID, URL, or description
-   - If no ID provided, suggest using `task-picker` agent
+- Accept task ID, URL, or description
+- If no ID provided, suggest using `task-picker` agent
 
-2. **Set Up Environment**
-   - Create feature branch from main
-   - Optionally create git worktree for parallel work
-   - Install dependencies if needed
+## 2. SET UP ENVIRONMENT
 
-3. **Gather Context**
-   - Read task details (if task manager configured)
-   - Identify relevant files and patterns
-   - Load applicable specs
+- Create feature branch from main
+- Branch naming: `<type>--<description>`
+  - `feat--` for features
+  - `fix--` for bugs
+  - `improvement--` for enhancements
+- Optionally create git worktree for parallel work
+- Install dependencies if needed
 
-4. **Assess Complexity**
-   - Simple bug → direct to implementation
-   - Complex feature → suggest planning first
-   - Unclear requirements → suggest clarification
+## 3. GATHER CONTEXT
 
-5. **Update Status**
-   - Mark task as "In Progress" (if task manager configured)
-   - Assign to self
+- Read task details (if task manager configured)
+- Identify relevant files and patterns
+- Load applicable specs or documentation
 
-## Usage
+## 4. ASSESS COMPLEXITY
 
+Route based on assessment:
+
+```text
+complexity{type,indicators,route}:
+  simple → "typo, config, small fix" → execute-task
+  standard → "clear requirements, single feature" → execute-task
+  complex → "unclear requirements, multi-file, architectural" → plan-task
 ```
-Start work on task 123
-Begin working on the login bug
-Pick up the feature request
+
+## 5. UPDATE STATUS
+
+- Mark task as "In Progress" (if task manager configured)
+- Assign to self
+</process>
+
+<output_format>
+```text
+start{task,branch,complexity,route}:
+  <id>,<branch>,simple|standard|complex,execute-task|plan-task
 ```
 
-## Output
+Return format:
+```
+result{status,action}:
+  success,continue | blocked,needs-input | failed,reason
 
+context[]:
+  (key context gathered)
+
+next_step:
+  (recommended action)
+```
+</output_format>
+
+<delegation>
+- `plan-task` - Complex tasks needing clarification/planning
+- `execute-task` - Ready for implementation
+- `task-picker` - If no task specified
+
+**Routing**:
+- Simple/Standard → `execute-task`
+- Complex/Unclear → `plan-task`
+</delegation>
+
+<success_criteria>
 - Branch created and checked out
-- Task status updated
+- Task status updated (if task manager)
 - Context summary provided
-- Next steps suggested
+- Routed to appropriate next agent
+</success_criteria>
 
-## See Also
+Done: Environment ready, context gathered, routed to next step
 
-- `plan-task` - For complex tasks needing planning
-- `execute-task` - For implementation
-- `ship` - When work is complete
+Ask first: If no task specified | If complexity unclear

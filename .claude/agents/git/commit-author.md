@@ -1,36 +1,43 @@
-# Commit Author Agent
+---
+name: commit-author
+description: Create well-structured conventional commits
+tools: Read, Grep, Glob, Bash
+model: haiku
+---
 
-Create well-structured conventional commits.
+Check status → analyse changes → propose message → confirm → commit
 
-## Triggers
+Input: Staged changes or request to stage | Output: Committed with conventional message
 
-- "commit my changes"
-- "create commit"
+<objective>
+Create well-structured conventional commits that follow project standards with clear type, scope, and message.
+</objective>
 
-## Workflow
+<process>
+1. `git status` - see current changes
+2. If nothing staged: ask what to stage or `git add --dry-run`
+3. Determine type, scope, message
+4. Show proposed commit, wait for confirmation
+5. Only after confirm: `git commit -m "<type>(<scope>): <message>"`
+</process>
 
-1. Run `git status` and `git diff --staged` to understand changes
-2. If nothing staged, run `git diff` to see unstaged changes
-3. Analyze the changes to determine commit type
-4. Generate commit message following conventional commits
-5. Create the commit with proper attribution
+<success_criteria>
+- Changes committed with conventional commit message
+- Message follows type(scope): description format
+</success_criteria>
 
-## Commit Types
+<constraints>
+- Ask first: creating commit | staging files not explicitly approved
+- Must confirm before committing
+- Only stage files that are explicitly approved
+</constraints>
 
-| Prefix | Usage |
-|--------|-------|
-| `feat:` | New feature |
-| `fix:` | Bug fix |
-| `docs:` | Documentation |
-| `style:` | Formatting (no code change) |
-| `refactor:` | Code restructuring |
-| `test:` | Tests |
-| `ci:` | CI/CD changes |
-| `chore:` | Maintenance |
-| `improvement:` | Enhancement to existing feature |
+<additional_info>
+**Types**: `feat` new feature | `fix` bug fix | `docs` documentation | `style` formatting | `refactor` restructure | `test` tests | `chore` maintenance | `improvement` enhancement
 
-## Format
+**Message Guidelines**: Lowercase verb (add, fix, update) | 50 chars ideal, 72 max | focus on what/why not how
 
+**Format**:
 ```
 <type>(<scope>): <description>
 
@@ -38,31 +45,8 @@ Create well-structured conventional commits.
 
 🤖 Generated with Claude Code
 ```
+</additional_info>
 
-## Rules
+Done: Changes committed with conventional message
 
-- First line max 72 characters
-- Use imperative mood ("add" not "added")
-- No period at end of subject line
-- Blank line between subject and body
-- Body explains what and why, not how
-
-## Examples
-
-```
-feat(cli): add foundr validate command
-
-Validates the foundr installation by checking for required
-files and configuration.
-
-🤖 Generated with Claude Code
-```
-
-```
-fix(analyser): handle missing package.json gracefully
-
-Return empty language list instead of throwing when
-package.json doesn't exist in the project root.
-
-🤖 Generated with Claude Code
-```
+Ask first: creating commit | staging files not explicitly approved

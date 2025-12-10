@@ -5,28 +5,28 @@ agent{id,path,triggers,requires,description}:
   address-pr-feedback,agents/git/address-pr-feedback.md,"address-pr-feedback",none,
   bisect-helper,agents/git/bisect-helper.md,"bisect, find",none,Guide through git bisect to find bug-introducing commit.
   branch-cleanup,agents/git/branch-cleanup.md,"clean branches,",none,Clean up old, merged, or stale branches safely.
-  commit-author,agents/git/commit-author.md,"commit my create",none,Create well-structured conventional commits.
-  conflict-resolver,agents/git/conflict-resolver.md,"resolve conflicts,",none,Resolve merge and rebase conflicts intelligently.
+  commit-author,agents/git/commit-author.md,"commit-author",none,
+  conflict-resolver,agents/git/conflict-resolver.md,"conflict-resolver",none,
   create-pr,agents/git/create-pr.md,"create pr,",none,Create a pull request with proper formatting.
   hotfix,agents/git/hotfix.md,"hotfix",none,
-  pr-reviewer,agents/git/pr-reviewer.md,"review pr,",none,Conduct PR reviews with inline comments.
-  rebase-helper,agents/git/rebase-helper.md,"rebase, sync",none,Safely rebase branches onto main with conflict handling.
+  pr-reviewer,agents/git/pr-reviewer.md,"pr-reviewer",none,
+  rebase-helper,agents/git/rebase-helper.md,"rebase-helper",none,
   reset-helper,agents/git/reset-helper.md,"reset, undo",none,Guide through safely undoing commits with git reset.
-  daily-sync,agents/lifecycle/daily-sync.md,"morning, daily",none,Morning routine - check PRs, tasks, sync branches, suggest focus.
-  task-breakdown,agents/lifecycle/task-breakdown.md,"break down,",none,Break down large tasks into smaller, actionable subtasks.
-  code-reviewer,agents/tools/code-reviewer.md,"review my",none,Review local code changes before committing.
+  daily-sync,agents/lifecycle/daily-sync.md,"daily-sync",none,
+  task-breakdown,agents/lifecycle/task-breakdown.md,"task-breakdown",none,
+  code-reviewer,agents/tools/code-reviewer.md,"code-reviewer",none,
   complexity-analyser,agents/tools/complexity-analyser.md,"complexity-analyser",none,
-  debug,agents/tools/debug.md,"debug this why is fix",none,Debug issues and find root causes.
-  investigate,agents/tools/investigate.md,"how does where is understand the explore",none,Explore and understand codebase structure and patterns.
-  refactor,agents/tools/refactor.md,"refactor this clean up improve",none,Refactor code for better maintainability and performance.
-  review,agents/tools/review.md,"review this check code my",none,Review code for quality, patterns, and potential issues.
-  test,agents/tools/test.md,"run tests fix failing add",none,Run and fix tests using Bun test.
-  worktree,agents/tools/worktree.md,"worktree, parallel",none,Manage git worktrees for parallel development.
-  complete-task,agents/workflow/complete-task.md,"complete, finish,",none,Finalize work after PR is merged - update task status and cleanup.
-  execute-task,agents/workflow/execute-task.md,"implement, build,",none,Execute implementation work following TDD workflow.
-  plan-task,agents/workflow/plan-task.md,"plan, clarify,",none,Clarify requirements and create implementation plans for complex tasks.
-  ship,agents/workflow/ship.md,"ship, push,",none,Commit changes, push to remote, and create a pull request.
-  start-work,agents/workflow/start-work.md,"start, begin,",none,Begin work on a task with proper setup and context gathering.
+  debug,agents/tools/debug.md,"debug",none,
+  investigate,agents/tools/investigate.md,"investigate",none,
+  refactor,agents/tools/refactor.md,"refactor",none,
+  review,agents/tools/review.md,"review",none,
+  test,agents/tools/test.md,"test",none,
+  worktree,agents/tools/worktree.md,"worktree",none,
+  complete-task,agents/workflow/complete-task.md,"complete-task",none,git branch -d <branch>
+  execute-task,agents/workflow/execute-task.md,"execute-task",none,
+  plan-task,agents/workflow/plan-task.md,"plan-task",none,
+  ship,agents/workflow/ship.md,"ship",none,
+  start-work,agents/workflow/start-work.md,"start-work",none,
 
 command{id,path,triggers,description}:
   commit,commands/commit.md,"commit",Create a conventional commit for staged changes.

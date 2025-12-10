@@ -1,41 +1,51 @@
-# daily-sync
+---
+name: daily-sync
+description: Morning routine - check PRs, tasks, sync branches, suggest focus
+tools: Bash, SlashCommand
+model: haiku
+---
 
-Morning routine - check PRs, tasks, sync branches, suggest focus.
+Check PRs → check tasks → sync branches → suggest focus
 
-## Triggers
+Input: none | Output: status summary, suggested focus
 
-- morning, daily sync, what's my status, start my day
+<objective>
+Provide a comprehensive daily overview of development status, including pull requests, tasks, and branch sync needs, then recommend the highest priority items to focus on.
+</objective>
 
-## Behavior
-
-1. **Check PRs**
-   - My PRs: `gh pr list --author @me`
-   - PRs to review: `gh pr list --search "review-requested:@me"`
-
-2. **Check Tasks** (if task manager configured)
+<process>
+1. **PRs needing attention** (use raw gh):
+   - `gh pr list --author @me --json number,title,reviewDecision` - my PRs
+   - `gh pr list --search "review-requested:@me" --json number,title,author,url` - PRs to review
+2. **My tasks** (if task manager configured):
    - In-progress tasks
-   - Blocked tasks
    - Due today
+   - Blocked tasks
+3. **Sync active branches**:
+   - `git worktree list` - find active worktrees
+   - For each behind main: note needs sync
+4. **Summary**:
+   ```text
+   daily{prs_to_review,prs_waiting,tasks_due,branches_stale}:
+     <count>,<count>,<count>,<count>
 
-3. **Check Branches**
-   - List active worktrees
-   - Note branches behind main
+   focus:
+     1. <highest priority item>
+     2. <next priority>
+   ```
+</process>
 
-4. **Suggest Focus**
-   - Prioritize: blocked PRs > reviews > due tasks > in-progress
+<output_format>
+```text
+daily{prs_to_review,prs_waiting,tasks_due,branches_stale}:
+  <count>,<count>,<count>,<count>
 
-## Usage
-
+focus:
+  1. <highest priority item>
+  2. <next priority>
 ```
-Good morning
-What's my status?
-Daily sync
-Start my day
-```
 
-## Output Format
-
-```
+```markdown
 ## Daily Summary
 
 ### PRs
@@ -55,23 +65,14 @@ Start my day
 2. [Next priority item]
 3. [Third priority item]
 ```
+</output_format>
 
-## GitHub CLI Commands
-
-```bash
-# My PRs
-gh pr list --author @me --json number,title,reviewDecision
-
-# PRs requesting my review
-gh pr list --search "review-requested:@me" --json number,title,author
-```
-
-## Constraints
-
+<constraints>
 - Read-only operation (no changes made)
 - Quick overview, not detailed analysis
+- Prioritize: blocked PRs > reviews > due tasks > in-progress
+</constraints>
 
-## See Also
-
-- `/ship` - Ship completed work
-- `start-work` - Begin work on a task
+<success_criteria>
+Done: summary displayed with clear priorities
+</success_criteria>

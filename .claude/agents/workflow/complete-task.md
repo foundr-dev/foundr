@@ -1,54 +1,87 @@
-# complete-task
+---
+name: complete-task
+description: Merge PR, update Asana to done, and cleanup branch/worktree
+tools: Bash, SlashCommand
+model: haiku
+---
 
-Finalize work after PR is merged - update task status and cleanup.
+Verify PR → merge → update task → cleanup
 
-## Triggers
+Input: PR number or task ID | Output: Task marked done, cleanup complete
 
-- complete, finish, done, close out, merge
+<objective>
+Finalize work after PR is approved - merge PR, update task status, and cleanup branches/worktrees.
+</objective>
 
-## Behavior
+<process>
+## 1. VERIFY PR STATUS
 
-1. **Verify PR Status**
-   - Check PR is approved
-   - Check CI is passing
-   - Merge if not already merged
-
-2. **Update Task Manager**
-   - Mark task as "Done" or "Complete"
-   - Add completion comment with PR link
-   - Update any related tasks
-
-3. **Cleanup**
-   - Delete feature branch (local and remote)
-   - Remove worktree if used
-   - Return to main branch
-
-4. **Notify**
-   - Confirm completion
-   - Summarize what was done
-
-## Usage
-
-```
-Complete task 123
-Finish up PR #45
-Close out this ticket
-Mark this as done
+```bash
+gh pr view <number> --json state,reviewDecision,statusCheckRollup
 ```
 
-## Prerequisites
+Check:
+- [ ] PR approved (or no reviews required)
+- [ ] CI passing
+- [ ] No merge conflicts
 
-- PR must be merged (or ready to merge)
-- All CI checks passing
+**If not ready**: Report status, suggest next steps
 
-## Output
+## 2. MERGE PR
 
-- Task marked complete
-- Branch deleted
-- Worktree removed
-- Back on main branch
+```bash
+gh pr merge <number> --squash --delete-branch
+```
 
-## See Also
+Options:
+- `--squash` for clean history (default)
+- `--merge` if preserving commits requested
+- `--delete-branch` removes remote branch
 
-- `ship` - Create PR (before complete)
-- `start-work` - Begin next task
+## 3. UPDATE TASK (if configured)
+
+- Mark task as "Done" or "Complete"
+- Add completion comment with merged PR link
+
+## 4. CLEANUP
+
+```bash
+# Delete local branch
+git branch -d <branch>
+
+# Remove worktree if used
+git worktree remove ../<worktree-name>
+
+# Return to main
+git checkout main
+git pull
+```
+</process>
+
+<output_format>
+```text
+complete{pr,task,branch_deleted,worktree_removed}:
+  #<number>,<id>,yes|no,yes|no|na
+```
+
+Return format:
+```
+result{status,action}:
+  success,continue | blocked,needs-input | failed,reason
+
+summary:
+  PR merged, task done, cleanup complete
+```
+</output_format>
+
+<success_criteria>
+- PR merged
+- Task marked complete (if configured)
+- Local branch deleted
+- Worktree removed (if applicable)
+- On main branch, up to date
+</success_criteria>
+
+Done: PR merged, task complete, cleanup done
+
+Ask first: If PR not approved | If merge has conflicts

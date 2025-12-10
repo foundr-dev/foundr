@@ -7,7 +7,8 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
-const CLAUDE_DIR = join(import.meta.dirname, "../../.claude");
+const REPO_ROOT = join(import.meta.dirname, "../..");
+const CLAUDE_DIR = join(REPO_ROOT, ".claude");
 const REGISTRY_PATH = join(CLAUDE_DIR, "registry.toon");
 
 interface ValidationResult {
@@ -97,7 +98,8 @@ function validateRegistry(): ValidationResult {
     log(`Checking ${sectionName}s...`);
 
     for (const entry of entries) {
-      const fullPath = join(CLAUDE_DIR, entry.path);
+      // Support paths relative to repo root (src/) or .claude/
+      const fullPath = entry.path.startsWith("src/") ? join(REPO_ROOT, entry.path) : join(CLAUDE_DIR, entry.path);
       registeredPaths.add(entry.path);
       result.total++;
 
@@ -129,9 +131,10 @@ function validateRegistry(): ValidationResult {
     }
   }
 
-  const hookFiles = findAllFiles(join(CLAUDE_DIR, "hooks"), ".sh");
+  // Check TypeScript hooks in src/scripts/hooks/
+  const hookFiles = findAllFiles(join(REPO_ROOT, "src/scripts/hooks"), ".ts");
   for (const file of hookFiles) {
-    const relPath = relative(CLAUDE_DIR, file);
+    const relPath = relative(REPO_ROOT, file);
     if (!registeredPaths.has(relPath)) {
       result.errors.push(`Unregistered hook: ${relPath}`);
     }

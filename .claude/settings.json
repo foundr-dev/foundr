@@ -1,12 +1,36 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.bun/bin/bun run \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/src/scripts/hooks/session-start.ts\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.bun/bin/bun run \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/src/scripts/hooks/openspec-hint.ts\" \"$CLAUDE_USER_PROMPT\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/git-hint.sh\" \"$CLAUDE_TOOL_INPUT\"",
+            "command": "$HOME/.bun/bin/bun run \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/src/scripts/hooks/git-hint.ts\" \"$CLAUDE_TOOL_INPUT\"",
             "timeout": 5
           }
         ]
@@ -18,7 +42,129 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/bash-failure.sh\" \"$CLAUDE_TOOL_INPUT\"",
+            "command": "$HOME/.bun/bin/bun run \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/src/scripts/hooks/bash-failure.ts\" \"$CLAUDE_TOOL_INPUT\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "execute-task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ execute-task completed. Next: use ship agent or /ship to create PR.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "plan-task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ plan-task completed. Next: use execute-task agent to implement the plan.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "ship",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ ship completed. PR created. Ready for review.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "complete-task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ complete-task completed. PR merged, branch cleaned up.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "start-work",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ start-work completed. Worktree ready, workflow delegated.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "create-pr",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ create-pr completed. PR created. Ready for review.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "address-pr-feedback",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ address-pr-feedback completed. Changes pushed. Request re-review.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "daily-sync",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ daily-sync completed. Use /next for task recommendation.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "code-reviewer",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ code-reviewer completed. Review comments ready.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "test",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ test agent completed. Check results above.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "refactor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ refactor completed. Run tests to verify changes.\"}'",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "debug",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"systemMessage\": \"✅ debug completed. Check findings above.\"}'",
             "timeout": 5
           }
         ]

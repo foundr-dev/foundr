@@ -74,8 +74,7 @@ skill{id,path,triggers,description}:
   cli-patterns,skills/cli-patterns/SKILL.md,"cli-patterns",On-demand context for building command-line interfaces.
 
 hook{id,path,event,description}:
-  git-hint,hooks/git-hint.sh,pre_tool_use,Git safety hints before destructive commands
-  bash-failure,hooks/bash-failure.sh,post_tool_use,Detect bash failures and provide suggestions
-  session-start,hooks/session-start.sh,session_start,Validate environment and show welcome
-  openspec-hint,hooks/openspec-hint.sh,user_prompt_submit,OpenSpec Hint Hook
-  pre-compaction-save,hooks/pre-compaction-save.sh,stop,Save context reminder before conversation ends
+  git-hint,src/scripts/hooks/git-hint.ts,pre_tool_use,Git safety hints before destructive commands
+  bash-failure,src/scripts/hooks/bash-failure.ts,post_tool_use,Detect bash failures and provide suggestions
+  session-start,src/scripts/hooks/session-start.ts,session_start,Validate environment and show welcome
+  openspec-hint,src/scripts/hooks/openspec-hint.ts,user_prompt_submit,Suggest OpenSpec for significant changes
